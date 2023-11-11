@@ -8,12 +8,12 @@ node_modules/
 dist/
 web-build/
 
-#variaveis de habient
 
-.env
 # zip
+
 *.zip
 # Native
+
 *.orig.*
 *.jks
 *.p8

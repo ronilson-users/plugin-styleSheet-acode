@@ -1,6 +1,6 @@
 {
   "id": "acode.plugin",
-  "name": "Plugin",
+  "name": "Acode StyleSheet React",
   "main": "dist/main.js",
   "version": "1.0.0",
   "readme": "readme.md",
@@ -9,8 +9,8 @@
   "minVersionCode" : 290,
   "price": 0,
   "author": {
-    "name": "",
-    "email": "",
+    "name": "Ronilson Rsj",
+    "email": "ronilson.stos@gmail.com",
     "github": ""
   }
 }

@@ -2,10 +2,14 @@ import plugin from '../plugin.json';
 
 class ReactNativeAutocomplete {
   async fetch(code) {
-    const regexStyles = /const\s+styles\s*=\s*StyleSheet\.create\s*\(\s*{([\s\S]*?)\s*}\s*\)\s*;/;
-    const matchStyles = code.match(regexStyles);
+    const regexStylesImport = /import\s+\{\s*StyleSheet\s*\}\s+from\s+['"]react-native['"]/;
+    const regexStylesCreate = /const\s+styles\s*=\s*StyleSheet\.create\s*\(\s*{([\s\S]*?)\s*}\s*\)\s*;/;
 
-    if (matchStyles) {
+    const hasStylesImport = regexStylesImport.test(code);
+    const hasStylesCreate = regexStylesCreate.test(code);
+
+    if (hasStylesImport && hasStylesCreate) {
+      const matchStyles = regexStylesCreate.exec(code);
       const stylesBlock = matchStyles[1];
       const regexClassNames = /\s*([\w-]+)\s*:\s*{/g;
       const classNames = new Set();
@@ -17,16 +21,16 @@ class ReactNativeAutocomplete {
 
       const properties = {};
       classNames.forEach(className => {
-        const regexProperties = new RegExp(`${className}\\s*:\\s*\\{([\\s\\S]*?)\\}`, 'g');
-        const matchProperties = regexProperties.exec(stylesBlock);
+        const regexPropertyNames = new RegExp(`${className}\\s*:\\s*\\{([\\s\\S]*?)\\}`, 'g');
+        const matchProperties = regexPropertyNames.exec(stylesBlock);
 
         if (matchProperties) {
           const propertiesBlock = matchProperties[1];
-          const regexPropertyNames = /\s*([\w-]+)\s*:/g;
+          const regexPropertyNamesInner = /\s*([\w-]+)\s*:/g;
           const propertyNames = new Set();
           let matchPropertyName;
 
-          while ((matchPropertyName = regexPropertyNames.exec(propertiesBlock))) {
+          while ((matchPropertyName = regexPropertyNamesInner.exec(propertiesBlock))) {
             propertyNames.add(matchPropertyName[1]);
           }
 
