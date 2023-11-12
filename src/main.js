@@ -1,86 +1,42 @@
+// src/main.js
 import plugin from '../plugin.json';
 
-class ReactNativeAutocomplete {
-  async fetch(code) {
-    const regexStylesImport = /import\s+\{\s*StyleSheet\s*\}\s+from\s+['"]react-native['"]/;
-    const regexStylesCreate = /const\s+styles\s*=\s*StyleSheet\.create\s*\(\s*{([\s\S]*?)\s*}\s*\)\s*;/;
-
-    const hasStylesImport = regexStylesImport.test(code);
-    const hasStylesCreate = regexStylesCreate.test(code);
-
-    if (hasStylesImport && hasStylesCreate) {
-      const matchStyles = regexStylesCreate.exec(code);
-      const stylesBlock = matchStyles[1];
-      const regexClassNames = /\s*([\w-]+)\s*:\s*{/g;
-      const classNames = new Set();
-      let matchClassName;
-
-      while ((matchClassName = regexClassNames.exec(stylesBlock))) {
-        classNames.add(matchClassName[1]);
-      }
-
-      const properties = {};
-      classNames.forEach(className => {
-        const regexPropertyNames = new RegExp(`${className}\\s*:\\s*\\{([\\s\\S]*?)\\}`, 'g');
-        const matchProperties = regexPropertyNames.exec(stylesBlock);
-
-        if (matchProperties) {
-          const propertiesBlock = matchProperties[1];
-          const regexPropertyNamesInner = /\s*([\w-]+)\s*:/g;
-          const propertyNames = new Set();
-          let matchPropertyName;
-
-          while ((matchPropertyName = regexPropertyNamesInner.exec(propertiesBlock))) {
-            propertyNames.add(matchPropertyName[1]);
-          }
-
-          properties[className] = Array.from(propertyNames);
-        }
-      });
-
-      return properties;
-    }
-
-    return {};
-  }
-
-  async completion(properties) {
-    const completion = {
-      getCompletions: (editor, session, pos, prefix, callback) => {
-        const line = session.getLine(pos.row).substr(0, pos.column);
-        const classNameRegex = /\s*className\s*=\s*["'](\w*)$/;
-        const matchClassName = line.match(classNameRegex);
-
-        if (matchClassName && matchClassName[1] in properties) {
-          const className = matchClassName[1];
-          callback(null, properties[className].map(property => {
-            return {
-              caption: property,
-              value: property,
-              meta: className,
-            };
-          }));
-        } else {
-          callback(null, []);
-        }
-      },
-    };
-
-    editorManager.editor.completers.unshift(completion);
-  }
-
-  async init(cache) {
-    const code = await cache.cacheFile.readFile('utf8');
-    const properties = await this.fetch(code);
-    this.completion(properties);
+class ReactPlugin {
+  async init() {
+    // Adicione lógica para detectar o início da constante styles
+    this.detectStylesDeclaration();
   }
 
   async destroy() {
-    // Lógica de limpeza quando o plugin é desativado
+    // Adicione lógica de limpeza, se necessário.
+  }
+
+  detectStylesDeclaration() {
+    // Expressão regular para encontrar o início da constante styles
+    const stylesDeclarationRegex = /\bconst\s+styles\s*=\s*StyleSheet\.create\s*\({/;
+
+    // Verifique se a expressão regular corresponde ao código da página
+    const isStylesDeclarationPresent = stylesDeclarationRegex.test(document.body.innerText);
+
+    if (isStylesDeclarationPresent) {
+      console.log('Encontrado o início da constante styles.');
+      // Adicione aqui a lógica para oferecer sugestões ou realizar ações relacionadas ao início de styles
+    } else {
+      console.log('A constante styles não foi encontrada no início.');
+    }
   }
 }
 
 if (window.acode) {
-  acode.setPluginInit(plugin.id, (url, page, cache) => new ReactNativeAutocomplete().init(cache));
-  acode.setPluginUnmount(plugin.id, () => new ReactNativeAutocomplete().destroy());
+  const reactPlugin = new ReactPlugin();
+  acode.setPluginInit(plugin.id, async (baseUrl, $page, { cacheFileUrl, cacheFile }) => {
+    if (!baseUrl.endsWith('/')) {
+      baseUrl += '/';
+    }
+    reactPlugin.baseUrl = baseUrl;
+    await reactPlugin.init($page, cacheFile, cacheFileUrl);
+  });
+  acode.setPluginUnmount(plugin.id, () => {
+    reactPlugin.destroy();
+  });
 }
