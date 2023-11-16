@@ -11,18 +11,25 @@ const styles = StyleSheet.create({
   }
 });
 
+/* componentes   */
+<MyElement style={styles.myClass} />
+
+<MyElement style={styles["my-dashed-class"]} /> 
+
+/*   snippets             */
 import React from "react";
 import { Text, View } from "react-native";
 
-<MyElement style={styles.myClass} />
+import MyElement from '../path/path';
 
-<MyElement style={styles["my-dashed-class"]} />
 
 const App = () => (
   <View style={styles.container}>
-    <Text  style={{ color: 'gray' }}>
+  
+    <Text  style={{ color: 'gray'}}>
       Grey text
-    </Text>
+    </Text>   
+    
   </View>
 );
 export default App;
