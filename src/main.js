@@ -4,22 +4,23 @@ import plugin from '../plugin.json';
 class ReactPlugin {
   async init() {
     // Adicione lógica para detectar o início da constante styles
-    this.detectStylesDeclaration();
+    this.detecImport();
   }
 
   async destroy() {
     // Adicione lógica de limpeza, se necessário.
   }
 
-  detectStylesDeclaration() {
-    // Expressão regular para encontrar o início da constante styles
-    const stylesDeclarationRegex = /\bconst\s+styles\s*=\s*StyleSheet\.create\s*\({/;
+  detectImport() {
+   // Expressão regular para encontrar a importação do StyleSheet
+const importRegex = /import\s+\{ StyleSheet \}\s+from\s+'react-native';/;
+
 
     // Verifique se a expressão regular corresponde ao código da página
-    const isStylesDeclarationPresent = stylesDeclarationRegex.test(document.body.innerText);
+    const isImportPresent = stylesDeclarationRegex.test(document.body.innerText);
 
-    if (isStylesDeclarationPresent) {
-      console.log('Encontrado o início da constante styles.');
+    if (isImportPresent) {
+      console.log('Encontrado o import contendo StyleSheet.');
       // Adicione aqui a lógica para oferecer sugestões ou realizar ações relacionadas ao início de styles
     } else {
       console.log('A constante styles não foi encontrada no início.');
