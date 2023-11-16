@@ -3,27 +3,33 @@ import plugin from '../plugin.json';
 
 class ReactPlugin {
   async init() {
-    // Adicione lógica para detectar o início da constante styles
-    this.detecImport();
+    // Add logic to detect the import statement containing StyleSheet
+    this.detectImport();
   }
 
   async destroy() {
-    // Adicione lógica de limpeza, se necessário.
+    // Add cleanup logic if needed.
   }
 
   detectImport() {
-   // Expressão regular para encontrar a importação do StyleSheet
-const importRegex = /import\s+\{ StyleSheet \}\s+from\s+'react-native';/;
-
-
-    // Verifique se a expressão regular corresponde ao código da página
-    const isImportPresent = stylesDeclarationRegex.test(document.body.innerText);
+    // Regular expression to find the import statement for StyleSheet
+    const importRegex = /import\s+\{ StyleSheet \}\s+from\s+'react-native';/;
+    
+    // Check if the regular expression matches the page's code
+    const isImportPresent = importRegex.test(document.body.innerText);
 
     if (isImportPresent) {
-      console.log('Encontrado o import contendo StyleSheet.');
-      // Adicione aqui a lógica para oferecer sugestões ou realizar ações relacionadas ao início de styles
+      console.log('Found the import statement containing StyleSheet.');
+      
+      // Create the styles constant if it doesn't already exist
+      if (typeof styles === 'undefined') {
+        const styles = StyleSheet.create({});
+      }
+      
+      // Add your logic here to offer suggestions or perform actions related to the StyleSheet import
+
     } else {
-      console.log('A constante styles não foi encontrada no início.');
+      console.log('The import statement containing StyleSheet was not found.');
     }
   }
 }
