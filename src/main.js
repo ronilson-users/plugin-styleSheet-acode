@@ -1,10 +1,30 @@
 // src/main.js
 import plugin from '../plugin.json';
 
+
+
 class ReactPlugin {
+
+  const template = require('babel-template');
+  
   async init() {
     // Add logic to detect the import statement containing StyleSheet
     this.detectImport();
+    
+ 
+
+       const createStylesDeclaration = template(`
+              const styles = StyleSheet.create({});
+            `);
+
+function createStylesDeclarationInsertion(path) {
+  path.insertBefore(createStylesDeclaration());
+}
+
+
+
+
+    
   }
 
   async destroy() {
