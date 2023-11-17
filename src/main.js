@@ -1,4 +1,4 @@
-// src/main.js
+/* src/main.js    */
 import plugin from '../plugin.json';
 
 const template = require('babel-template');
@@ -21,9 +21,6 @@ class ReactPlugin {
 function createStylesDeclarationInsertion(path) {
   path.insertBefore(createStylesDeclaration());
 }
-
-
-
 
     
   }
