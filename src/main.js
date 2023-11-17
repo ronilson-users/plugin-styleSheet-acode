@@ -1,11 +1,12 @@
 // src/main.js
 import plugin from '../plugin.json';
 
+const template = require('babel-template');
 
 
 class ReactPlugin {
 
-  const template = require('babel-template');
+
   
   async init() {
     // Add logic to detect the import statement containing StyleSheet
