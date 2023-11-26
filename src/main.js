@@ -1,67 +1,63 @@
-/* src/main.js    */
 import plugin from '../plugin.json';
+import style from './Styles/styles.css'
+class ReactAutocompletePlugin {
+	async fetch() {
+		// Lógica para obter as classes do React utilizando StyleSheet
+		// Substitua esta lógica pela sua implementação para buscar as classes
 
-const template = require('babel-template');
+		console.log('ronilson');
+	}
 
+	async completion(classes) {
+		const completion = {
+			getCompletions: (editor, session, pos, prefix, callback) => {
+				if (session.getMode().$id === 'ace/mode/javascript') {
+					let line = session.getLine(pos.row).substr(0, pos.column);
 
-class ReactPlugin {
+					if (line.includes('className=')) {
+						callback(
+							null,
+							classes.map(word => ({
+								caption: word,
+								value: word,
+								meta: 'React',
+							})),
+						);
+						return;
+					}
+				}
 
+				callback(null, []);
+			},
+		};
 
-  
-  async init() {
-    // Add logic to detect the import statement containing StyleSheet
-    this.detectImport();
-    
- 
+		editorManager.editor.completers.unshift(completion);
+	}
 
-       const createStylesDeclaration = template(`
-              const styles = StyleSheet.create({});
-            `);
+	async init(cache) {
+		this.file = cache.cacheFile;
+		this.style = document.createElement('style');
+		this.style.textContent = style;
+		document.head.appendChild(this.style);
 
-function createStylesDeclarationInsertion(path) {
-  path.insertBefore(createStylesDeclaration());
-}
+		const reactClasses = await this.file.readFile('utf8');
 
-    
-  }
+		if (!reactClasses) {
+			const classes = await this.fetch();
+			await this.file.writeFile(JSON.stringify(classes));
+			this.completion(classes);
+			return;
+		}
 
-  async destroy() {
-    // Add cleanup logic if needed.
-  }
+		this.completion(JSON.parse(reactClasses));
+	}
 
-  detectImport() {
-    // Regular expression to find the import statement for StyleSheet
-    const importRegex = /import\s+\{ StyleSheet \}\s+from\s+'react-native';/;
-    
-    // Check if the regular expression matches the page's code
-    const isImportPresent = importRegex.test(document.body.innerText);
-
-    if (isImportPresent) {
-      console.log('Found the import statement containing StyleSheet.');
-      
-      // Create the styles constant if it doesn't already exist
-      if (typeof styles === 'undefined') {
-        const styles = StyleSheet.create({});
-      }
-      
-      // Add your logic here to offer suggestions or perform actions related to the StyleSheet import
-
-    } else {
-      console.log('The import statement containing StyleSheet was not found.');
-    }
-  }
+	async destroy() {
+		this.completion([]);
+	}
 }
 
 if (window.acode) {
-  const reactPlugin = new ReactPlugin();
-  acode.setPluginInit(plugin.id, async (baseUrl, $page, { cacheFileUrl, cacheFile }) => {
-    if (!baseUrl.endsWith('/')) {
-      baseUrl += '/';
-    }
-    reactPlugin.baseUrl = baseUrl;
-    await reactPlugin.init($page, cacheFile, cacheFileUrl);
-  });
-  acode.setPluginUnmount(plugin.id, () => {
-    reactPlugin.destroy();
-  });
+	acode.setPluginInit(plugin.id, (url, page, cache) => new ReactAutocompletePlugin().init(cache));
+	acode.setPluginUnmount(plugin.id, () => new ReactAutocompletePlugin().destroy());
 }

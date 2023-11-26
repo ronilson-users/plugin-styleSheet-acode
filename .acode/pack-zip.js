@@ -8,7 +8,7 @@ const distFolder = path.join(__dirname, '../dist');
 let readmeDotMd = path.join(__dirname, '../readme.md');
 
 if (!fs.existsSync(readmeDotMd)) {
-  readmeDotMd = path.join(__dirname, '../README.md');
+	readmeDotMd = path.join(__dirname, '../README.md');
 }
 
 // create zip file of dist folder
@@ -22,26 +22,25 @@ zip.file('readme.md', fs.readFileSync(readmeDotMd));
 loadFile('', distFolder);
 
 zip
-  .generateNodeStream({ type: 'nodebuffer', streamFiles: true })
-  .pipe(fs.createWriteStream(path.join(__dirname, '../dist.zip')))
-  .on('finish', () => {
-    console.log('dist.zip written.');
-  });
+	.generateNodeStream({ type: 'nodebuffer', streamFiles: true })
+	.pipe(fs.createWriteStream(path.join(__dirname, '../dist.zip')))
+	.on('finish', () => {
+		console.log('dist.zip written.');
+	});
 
 function loadFile(root, folder) {
-  const distFiles = fs.readdirSync(folder);
-  distFiles.forEach((file) => {
+	const distFiles = fs.readdirSync(folder);
+	distFiles.forEach(file => {
+		const stat = fs.statSync(path.join(folder, file));
 
-    const stat = fs.statSync(path.join(folder, file));
+		if (stat.isDirectory()) {
+			zip.folder(file);
+			loadFile(path.join(root, file), path.join(folder, file));
+			return;
+		}
 
-    if (stat.isDirectory()) {
-      zip.folder(file);
-      loadFile(path.join(root, file), path.join(folder, file));
-      return;
-    }
-
-    if (!/LICENSE.txt/.test(file)) {
-      zip.file(path.join(root, file), fs.readFileSync(path.join(folder, file)));
-    }
-  });
+		if (!/LICENSE.txt/.test(file)) {
+			zip.file(path.join(root, file), fs.readFileSync(path.join(folder, file)));
+		}
+	});
 }
