@@ -21,7 +21,7 @@ const snippets = {
 };
 
 class ReactPlugin {
-	async init(cacheFile, ) {
+	async init(cache) {
 		const extensions = ['js', 'jsx', 'ts', 'tsx'];
 		this.insertSnippets(snippets);
 	}
@@ -42,15 +42,15 @@ class ReactPlugin {
 }
 
 if (window.acode) {
-	const acodePlugin = new ReactPlugin();
+	const reactPlugin = new ReactPlugin();
 	acode.setPluginInit(plugin.id, async (baseUrl, $page, { cacheFileUrl, cacheFile }) => {
 		if (!baseUrl.endsWith('/')) {
 			baseUrl += '/';
 		}
-		acodePlugin.baseUrl = baseUrl;
+		reactPlugin.baseUrl = baseUrl;
 		await reactPlugin.init($page, cacheFile, cacheFileUrl);
 	});
 	acode.setPluginUnmount(plugin.id, () => {
-		acodePlugin.destroy();
+		reactPlugin.destroy();
 	});
 }
