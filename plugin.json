@@ -1,5 +1,5 @@
 {
-	"id": "ronilsonRsj.plugin.ReactStyleSheet",
+	"id": "ronilsonRsj.plugin.React",
 	"name": "Acode React Snippets",
 	"main": "dist/main.js",
 	"version": "1.0.0",
