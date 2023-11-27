@@ -1,6 +1,6 @@
 {
 	"id": "ronilsonRsj.plugin.ReactStyleSheet",
-	"name": "Acode StyleSheet React",
+	"name": "Acode React Snippets",
 	"main": "dist/main.js",
 	"version": "1.0.0",
 	"readme": "readme.md",

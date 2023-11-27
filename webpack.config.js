@@ -1,18 +1,5 @@
 const { exec } = require('child_process');
-
-const postcss=require('./postcss.config.js');
 const path = require('path');
-
-const build = (bash) => {
-  bash.hooks.afterDone.tap('build', async () => {
-   await exec('node .acode/build.js', (err, ok) => {
-     if (!err) return console.log(ok);
-   });
- });
-};
-
-
-
 
 module.exports = (env, options) => {
 	const { mode = 'development' } = options;

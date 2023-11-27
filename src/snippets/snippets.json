@@ -1,0 +1,19 @@
+{
+	"reactFunctionalComponent": {
+		"key": "reactFunctionalComponent",
+		"prefix": "rfc",
+		"body": [
+			"import React from 'react'",
+			"",
+			"import {View } from 'react-native'",
+			"export default function ${1:${TM_FILENAME_BASE}}() {",
+			"  return (",
+			"    <View>${1:first}</View>",
+			"  )",
+			"}",
+			""
+		],
+		"description": "Creates a React Functional Component with ES7 module system",
+		"scope": "typescript,typescriptreact,javascript,javascriptreact"
+	}
+}

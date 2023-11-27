@@ -1,7 +1,7 @@
 {
-	"name": "plugin-stylesheet-acode",
+	"name": "plugin-acode",
 	"version": "1.0.0",
-	"description": "Plugin Acode React StyleSheet",
+	"description": "Plugin Acode React ",
 	"main": "dist/main.js",
 	"scripts": {
 		"prettier": "prettier --write .",
@@ -17,7 +17,7 @@
 		"Plugin",
 		"Acode"
 	],
-	"author": "Rinilson Santos",
+	"author": "Ronilson Santos",
 	"license": "MIT",
 	"bugs": {
 		"url": "https://github.com/ronilson-users/plugin-styleSheet-acode/issues"

@@ -12,12 +12,5 @@ Antes de começar, certifique-se de ter o Acode instalado no seu ambiente de des
 ```bash
 git clone https://github.com/ronilson-users/plugin-styleSheet-acode.git
 
-|  Prefix | Method  ----------------------------------: | --------------------------------------------------- |
-|  `imp→` | `import moduleName from 'module'`                   |
-|  `imn→` | `import 'module'`                                   |
-|  `imd→` | `import { destructuredModule } from 'module'`       |
-|  `ime→` | `import * as alias from 'module'`                   |
-|  `ima→` | `import { originalName as aliasName} from 'module'` |
-|  `exp→` | `export default moduleName`                         |
-|  `exd→` | `export { destructuredModule } from 'module'`       |
+v3 file
 ```
