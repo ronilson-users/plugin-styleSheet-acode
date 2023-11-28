@@ -1,4 +1,4 @@
-// Importações necessárias
+
 import plugin from '../plugin.json'; // Importa o arquivo plugin.json
 import { getFileType } from './Helpers/helper'; // Importa a função getFileType do arquivo helper.js
 import { snippets, Snippets } from './snippets/snippets'; // Importa os snippets
