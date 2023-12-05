@@ -1,8 +1,8 @@
 {
-	"id": "ronilsonRsj.plugin.React",
-	"name": "Acode React Snippets",
+	"id": "ronilsonRsj.plugin.ReactStyleSheet",
+	"name": "Acode Snnipets React Native",
 	"main": "dist/main.js",
-	"version": "1.0.0",
+	"version": "1.0.1",
 	"readme": "readme.md",
 	"icon": "icon.png",
 	"files": [],

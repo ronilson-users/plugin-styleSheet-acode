@@ -1,7 +1,7 @@
 {
-	"name": "plugin-acode",
-	"version": "1.0.0",
-	"description": "Plugin Acode React ",
+	"name": "Plugin-Acode-React",
+	"version": "1.0.1",
+	"description": "Plugin Acode React Native ",
 	"main": "dist/main.js",
 	"scripts": {
 		"prettier": "prettier --write .",
@@ -15,9 +15,10 @@
 	},
 	"keywords": [
 		"Plugin",
-		"Acode"
+		"Acode",
+		"React Native"
 	],
-	"author": "Ronilson Santos",
+	"author": "Roni <ronilson-users>",
 	"license": "MIT",
 	"bugs": {
 		"url": "https://github.com/ronilson-users/plugin-styleSheet-acode/issues"

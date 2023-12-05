@@ -22,7 +22,10 @@ zip.file('readme.md', fs.readFileSync(readmeDotMd));
 loadFile('', distFolder);
 
 zip
-	.generateNodeStream({ type: 'nodebuffer', streamFiles: true })
+	.generateNodeStream({
+		type: 'nodebuffer',
+		streamFiles: true,
+	})
 	.pipe(fs.createWriteStream(path.join(__dirname, '../dist.zip')))
 	.on('finish', () => {
 		console.log('dist.zip written.');

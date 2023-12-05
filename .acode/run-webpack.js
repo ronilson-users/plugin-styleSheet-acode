@@ -2,7 +2,9 @@
 const { spawn } = require('child_process');
 const path = require('path');
 
-const webpack = spawn('npx', ['webpack', '--mode=development', '--watch'], { cwd: path.resolve(__dirname, '../') });
+const webpack = spawn('npx', ['webpack', '--mode=development', '--watch'], {
+	cwd: path.resolve(__dirname, '../'),
+});
 
 webpack.on('error', webpackError => {
 	if (webpackError) {
