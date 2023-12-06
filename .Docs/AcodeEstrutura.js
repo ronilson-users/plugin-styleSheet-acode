@@ -7,9 +7,7 @@ const { editor } = editorManager;
 const { snippetManager } = ace.require('ace/snippets'); // Inicializa o snippetManager do Ace Editor
 
 class AcodePluginSnippets {
-	constructor() {
-		
-	}
+	constructor() {}
 
 	async init() {}
 

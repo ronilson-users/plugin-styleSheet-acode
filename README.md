@@ -1,20 +1,66 @@
-# ACODE PLUGIN REACT NATIVE
 
-## Descrição
+<h1 align="center"> Acode Plugin Snippets RN </h1>
 
-Este plugin oferece funcionalidades de Snippets para React Native em Js e jsx.
 
-O plugin foi desenvolvido para oferecer suporte a uma série de snippets e funcionalidades úteis que agilizam o processo de codificação.
+<br>
+## VERSÂO  1.0.2
+<br>
+<br>
 
+Este plugin implementa funcionalidades de snippets para o editor Acode, visando aumentar a produtividade no desenvolvimento de aplicativos React Native.
+
+
+
+ `<br>` 
+ <br>
 ## Funcionalidades
 
-- Suporte a autocompletar para um conjunto de snippets úteis.
+### Snippets
 
-## Como Utilizar
+O plugin oferece uma série de snippets predefinidos para facilitar a escrita de código no React Native. Alguns dos snippets disponíveis incluem:
 
-## Contribuindo
+- Importações rápidas para React e componentes específicos do React Native (como `View`, `Text`, etc.).
+- Estruturas básicas para criação de componentes funcionais em React Native.
+- Constantes pré-definidas para agilizar a escrita de código comuns.
 
-Contribuições são bem-vindas! Se você deseja contribuir para este plugin, siga estas etapas:
+A lista completa de snippets disponíveis pode ser encontrada na seção
+
+[Snippets](#snippets).
+
+### Autocompletar Snippets
+
+O plugin implementa uma funcionalidade de autocompletar para snippets. Ao digitar um prefixo de snippet, o plugin sugere automaticamente opções de completar código com base nos snippets disponíveis.
+
+## Utilização
+
+### Como Usar
+
+1. Certifique-se de ter o editor Acode instalado.
+2. Instale este plugin no Acode.
+3. Ao digitar código em um arquivo React Native, utilize os prefixes de snippets configurados para acessar rapidamente os trechos de código pré-definidos.
+
+## Snippets Disponíveis
+<br>
+<br>
+
+| Prefixo                  | Tipo de Snippet                       |
+|--------------------------|---------------------------------------|
+| rn-import-react          | ReactImport                           |
+| rn-import-view           | ReactNativeViewImport                 |
+| rn-import-text           | ReactNativeTextImport                 |
+| rn-import-components     | ReactNativeComponentsImport           |
+| rn-functional-component  | ReactNativeFunctionalComponent        |
+| rn-constant              | ReactNativeConstant                   |
+| rn-button                | ReactNativeButton                     |
+
+<br>
+<br>
+<br>
+
+
+## Contribuições
+
+Contribuições para novos snippets ou melhorias são bem-vindas! Sinta-se à vontade para propor novas funcionalidades ou aprimoramentos para este plugin
 
 1. Faça um fork do repositório.
 2. Crie um branch para suas alterações (`git checkout -b feature/nova-funcionalidade`).
@@ -22,12 +68,16 @@ Contribuições são bem-vindas! Se você deseja contribuir para este plugin, si
 4. Faça push para o branch (`git push origin feature/nova-funcionalidade`).
 5. Crie um novo Pull Request.
 
+## Autore
+
+- Ronilson RSJ
+
+## ACRADECIMENTO
+ - Maycak Sharma
+
+
 ## Licença
 
-MIT
-
-## Contato
-
-Plugin em desenvolvimento
+Este plugin está sob a [MIT]. Consulte o arquivo LICENSE para obter mais detalhes.
 
 <script type="text/javascript" src="https://cdnjs.buymeacoffee.com/1.0.0/button.prod.min.js" data-name="bmc-button" data-slug="ronilsonstj" data-color="#FFDD00" data-emoji="☕"  data-font="Bree" data-text="Buy me a coffee" data-outline-color="#000000" data-font-color="#000000" data-coffee-color="#ffffff" ></script>

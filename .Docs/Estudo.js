@@ -6,174 +6,172 @@ const fsOperation = acode.require('fsOperation');
 const { editor } = editorManager;
 
 class PathIntellisense {
-constructor() {
-this.directoryCache = new LRUCache();
-}
+	constructor() {
+		this.directoryCache = new LRUCache();
+	}
 
-async init() {
-const self = this;
-editor.commands.addCommand({
-name: 'pathintellisense:reset_cache',
-description: 'Reset PathIntellisense Cache',
-bindKey: { win: 'Ctrl-Shift-I' },
-exec: this.clearCache.bind(this),
-});
+	async init() {
+		const self = this;
+		editor.commands.addCommand({
+			name: 'pathintellisense:reset_cache',
+			description: 'Reset PathIntellisense Cache',
+			bindKey: { win: 'Ctrl-Shift-I' },
+			exec: this.clearCache.bind(this),
+		});
 
+		this.pathAutoCompletions = {
+			getCompletions: async function (editor, session, pos, prefix, callback) {
+				const currentLine = session.getLine(pos.row);
 
+				let input = self.getCurrentInput(currentLine, pos.column);
+				if (!editorManager.activeFile.uri) return;
 
-this.pathAutoCompletions = {
-getCompletions: async function (editor, session, pos, prefix, callback) {
-const currentLine = session.getLine(pos.row);
+				const absolutePath = '$HOME/';
 
-let input = self.getCurrentInput(currentLine, pos.column);
-if (!editorManager.activeFile.uri) return;
+				let currentDirectory = self.removeFileNameAndExtension(editorManager.activeFile.uri);
+				if (input.startsWith(absolutePath)) {
+					// Check if the input contains a folder name after the prefix
+					const folderPath = input.substring(absolutePath.length);
+					const fullPath =
+						'content://com.termux.documents/tree/%2Fdata%2Fdata%2Fcom.termux%2Ffiles%2Fhome::/data/data/com.termux/files/home/' +
+							folderPath || '';
+					await self.fetchDirectoryContents(fullPath, callback, false);
+				} else if (input.startsWith('/')) {
+					const basePath = currentDirectory;
+					const fullPath = self.resolveRelativePath(basePath, input);
+					await self.fetchDirectoryContents(fullPath, callback, false);
+				} else if (input.startsWith('../')) {
+					const basePath = currentDirectory;
+					const fullPath = self.resolveRelativePath(basePath, input);
+					await self.fetchDirectoryContents(fullPath, callback, false);
+				} else if (input.startsWith('./')) {
+					const basePath = currentDirectory;
+					const fullPath = self.resolveRelativePath(basePath, input.substring(1)); // Remove the dot
+					await self.fetchDirectoryContents(fullPath, callback, false);
+				} else {
+					await self.fetchDirectoryContents(currentDirectory, callback, true);
+				}
+			},
+		};
+		editor.completers.unshift(this.pathAutoCompletions);
+		editor.commands.on('afterExec', function (e) {
+			if (e.command.name === 'insertstring' && (e.args === '/' || e.args.endsWith('/'))) {
+				editor.execCommand('startAutocomplete');
+			}
+		});
+	}
 
-const absolutePath = '$HOME/';
+	clearCache() {
+		this.directoryCache.resetCache();
+		window.toast('Cache Cleared 🔥', 2000);
+	}
 
-let currentDirectory = self.removeFileNameAndExtension(editorManager.activeFile.uri);
-if (input.startsWith(absolutePath)) {
-// Check if the input contains a folder name after the prefix
-const folderPath = input.substring(absolutePath.length);
-const fullPath =
-'content://com.termux.documents/tree/%2Fdata%2Fdata%2Fcom.termux%2Ffiles%2Fhome::/data/data/com.termux/files/home/' +
-folderPath || '';
-await self.fetchDirectoryContents(fullPath, callback, false);
-} else if (input.startsWith('/')) {
-const basePath = currentDirectory;
-const fullPath = self.resolveRelativePath(basePath, input);
-await self.fetchDirectoryContents(fullPath, callback, false);
-} else if (input.startsWith('../')) {
-const basePath = currentDirectory;
-const fullPath = self.resolveRelativePath(basePath, input);
-await self.fetchDirectoryContents(fullPath, callback, false);
-} else if (input.startsWith('./')) {
-const basePath = currentDirectory;
-const fullPath = self.resolveRelativePath(basePath, input.substring(1)); // Remove the dot
-await self.fetchDirectoryContents(fullPath, callback, false);
-} else {
-await self.fetchDirectoryContents(currentDirectory, callback, true);
-}
-},
-};
-editor.completers.unshift(this.pathAutoCompletions);
-editor.commands.on('afterExec', function (e) {
-if (e.command.name === 'insertstring' && (e.args === '/' || e.args.endsWith('/'))) {
-editor.execCommand('startAutocomplete');
-}
-});
-}
+	async fetchDirectoryContents(path, callback, isNormal) {
+		try {
+			const helpers = acode.require('helpers');
+			const cachedData = await this.directoryCache.getAsync(path);
 
-clearCache() {
-this.directoryCache.resetCache();
-window.toast('Cache Cleared 🔥', 2000);
-}
+			if (cachedData) {
+				callback(null, cachedData);
+				return;
+			}
 
-async fetchDirectoryContents(path, callback, isNormal) {
-try {
-const helpers = acode.require('helpers');
-const cachedData = await this.directoryCache.getAsync(path);
+			const list = await fsOperation(path).lsDir();
+			const suggestions = list.map(function (item) {
+				const completion = {
+					caption: item.name,
+					value: item.name,
+					score: isNormal ? 500 : 8000,
+					meta: item.isFile ? 'File' : 'Folder',
+				};
+				if (extraSyntaxHighlightsInstalled) {
+					completion.icon = item.isFile ? helpers.getIconForFile(item.name) : 'icon folder';
+				}
+				if (!item.isFile) {
+					completion.value += '/';
+				}
+				return completion;
+			});
+			// Cache the directory contents for future use
+			await this.directoryCache.setAsync(path, suggestions);
 
-if (cachedData) {
-callback(null, cachedData);
-return;
-}
+			callback(null, suggestions);
+		} catch (err) {
+			callback(null, []);
+			console.log(err);
+		}
+	}
 
-const list = await fsOperation(path).lsDir();
-const suggestions = list.map(function (item) {
-const completion = {
-caption: item.name,
-value: item.name,
-score: isNormal ? 500: 8000,
-meta: item.isFile ? 'File': 'Folder',
-};
-if (extraSyntaxHighlightsInstalled) {
-completion.icon = item.isFile ? helpers.getIconForFile(item.name): 'icon folder';
-}
-if (!item.isFile) {
-completion.value += '/';
-}
-return completion;
-});
-// Cache the directory contents for future use
-await this.directoryCache.setAsync(path, suggestions);
+	getCurrentInput(line, column) {
+		let input = '';
+		let i = column - 1;
+		while (i >= 0 && /[a-zA-Z0-9/.+_\-\s$\:]/.test(line[i])) {
+			input = line[i] + input;
+			i--;
+		}
+		return input;
+	}
 
-callback(null, suggestions);
-} catch (err) {
-callback(null, []);
-console.log(err);
-}
-}
+	resolveRelativePath(basePath, relativePath) {
+		if (relativePath.startsWith('/')) {
+			// Absolute path, return it as is
+			return basePath + relativePath;
+		}
 
-getCurrentInput(line, column) {
-let input = '';
-let i = column - 1;
-while (i >= 0 && /[a-zA-Z0-9/.+_\-\s$\:]/.test(line[i])) {
-input = line[i] + input;
-i--;
-}
-return input;
-}
+		const basePathParts = basePath.split('::');
+		if (basePathParts.length === 2) {
+			const baseUri = basePathParts[0];
+			let baseDir = basePathParts[1];
 
-resolveRelativePath(basePath, relativePath) {
-if (relativePath.startsWith('/')) {
-// Absolute path, return it as is
-return basePath + relativePath;
-}
+			// Ensure baseDir ends with "/"
+			if (!baseDir.endsWith('/')) {
+				baseDir += '/';
+			}
 
-const basePathParts = basePath.split('::');
-if (basePathParts.length === 2) {
-const baseUri = basePathParts[0];
-let baseDir = basePathParts[1];
+			const relativeParts = relativePath.split('/');
 
-// Ensure baseDir ends with "/"
-if (!baseDir.endsWith('/')) {
-baseDir += '/';
-}
+			for (const part of relativeParts) {
+				if (part === '..') {
+					// Move up one directory, but avoid going above the root
+					const lastSlashIndex = baseDir.lastIndexOf('/', baseDir.length - 2);
+					if (lastSlashIndex !== -1) {
+						baseDir = baseDir.substring(0, lastSlashIndex + 1);
+					}
+				} else if (part !== '.' && part !== '') {
+					baseDir += part + '/';
+				}
+			}
 
-const relativeParts = relativePath.split('/');
+			const resolvedPath = baseUri + '::' + baseDir;
+			return resolvedPath;
+		}
 
-for (const part of relativeParts) {
-if (part === '..') {
-// Move up one directory, but avoid going above the root
-const lastSlashIndex = baseDir.lastIndexOf('/', baseDir.length - 2);
-if (lastSlashIndex !== -1) {
-baseDir = baseDir.substring(0, lastSlashIndex + 1);
-}
-} else if (part !== '.' && part !== '') {
-baseDir += part + '/';
-}
-}
+		// Return the basePath unmodified if it doesn't match the expected format
+		return basePath;
+	}
 
-const resolvedPath = baseUri + '::' + baseDir;
-return resolvedPath;
-}
+	removeFileNameAndExtension(filePath) {
+		const lastSlashIndex = filePath.lastIndexOf('/');
+		const fileName = filePath.substring(lastSlashIndex + 1);
+		return filePath.substring(0, filePath.length - fileName.length - 1);
+	}
 
-// Return the basePath unmodified if it doesn't match the expected format
-return basePath;
-}
-
-removeFileNameAndExtension(filePath) {
-const lastSlashIndex = filePath.lastIndexOf('/');
-const fileName = filePath.substring(lastSlashIndex + 1);
-return filePath.substring(0, filePath.length - fileName.length - 1);
-}
-
-async destroy() {
-editor.completers.splice(editor.completers.indexOf(thieditorManagers.pathAutoCompletions), 1);
-editor.commands.removeCommand('pathintellisense:reset_cache');
-}
+	async destroy() {
+		editor.completers.splice(editor.completers.indexOf(thieditorManagers.pathAutoCompletions), 1);
+		editor.commands.removeCommand('pathintellisense:reset_cache');
+	}
 }
 
 if (window.acode) {
-const acodePlugin = new PathIntellisense();
-acode.setPluginInit(plugin.id, async (baseUrl, $page, { cacheFileUrl, cacheFile }) => {
-if (!baseUrl.endsWith('/')) {
-baseUrl += '/';
-}
-acodePlugin.baseUrl = baseUrl;
-await acodePlugin.init($page, cacheFile, cacheFileUrl);
-});
-acode.setPluginUnmount(plugin.id, () => {
-acodePlugin.destroy();
-});
+	const acodePlugin = new PathIntellisense();
+	acode.setPluginInit(plugin.id, async (baseUrl, $page, { cacheFileUrl, cacheFile }) => {
+		if (!baseUrl.endsWith('/')) {
+			baseUrl += '/';
+		}
+		acodePlugin.baseUrl = baseUrl;
+		await acodePlugin.init($page, cacheFile, cacheFileUrl);
+	});
+	acode.setPluginUnmount(plugin.id, () => {
+		acodePlugin.destroy();
+	});
 }
