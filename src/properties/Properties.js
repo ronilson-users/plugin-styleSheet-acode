@@ -1,4 +1,6 @@
-const flexStyles = {
+// src/properties.js
+
+export const reactNativeStyles = {
 	alignContent: ['flex-start', 'flex-end', 'center', 'stretch', 'space-between', 'space-around', 'space-evenly'],
 	alignItems: ['flex-start', 'flex-end', 'center', 'stretch', 'baseline'],
 	alignSelf: ['auto', 'flex-start', 'flex-end', 'center', 'stretch', 'baseline'],
