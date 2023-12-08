@@ -1,86 +1,61 @@
-// Importação do plugin e módulos necessários
-import plugin from '../plugin.json';
-import { reactNativeStyles } from '../src/properties/Properties';
-import { snippets } from '../src/snippets/Snippets';
+import plugin from "../plugin.json";
+import LRUCache from './cache.js';
 
-// Inicialização das variáveis editor e snippetManager
+
+const fsOperation = acode.require("fsOperation");
 const { editor } = editorManager;
-const { snippetManager } = ace.require('ace/snippets');
 
-// Classe AcodePluginSnippets para gerenciar os snippets no editor
-class AcodePluginSnippets {
-constructor() {
-this.editor = editor;
-this.snippetManager = snippetManager;
-this.initializeSnippetInsertion();
-}
+const fileList = acode.require('fileList');
 
-// Inicializa a inserção de snippets no editor
-initializeSnippetInsertion() {
-this.editor.completers = [this];
-}
+const list = await fileList();
 
-// Obtém sugestões de completar (snippets ou estilos)
-getCompletions(editor, session, pos, prefix, callback) {
-const cursor = editor.getCursorPosition();
-const line = session.getLine(cursor.row);
-const lastWord = line.substr(0, cursor.column).split(/\s+/).pop();
-
-// Procura por snippets que começam com a última palavra digitada
-const matchedSnippets = snippets.filter(snippet => snippet.prefix.startsWith(lastWord));
-
-if (matchedSnippets.length > 0 && matchedSnippets[0].prefix !== lastWord) {
-// Se há snippets correspondentes, retorna sugestões de snippets
-const suggestions = matchedSnippets.map(snippet => {
-return {
-caption: snippet.prefix,
-value: snippet.snippet,
-meta: "snippet"
-};
+list.forEach((item) => {
+  console.log(item.root);
 });
-callback(null, suggestions);
-} else {
-// Se não houver snippets correspondentes, busca por estilos de React Native
-const matchedStyles = Object.keys(reactNativeStyles).filter(style => style.startsWith(lastWord));
-if (matchedStyles.length > 0 && matchedStyles[0] !== lastWord) {
-// Se há estilos correspondentes, retorna sugestões de estilos de React Native
-const styleSuggestions = matchedStyles.map(style => {
-return {
-caption: style,
-value: style,
-meta: "Prop. Css RN"
-};
-});
-callback(null, styleSuggestions);
-} else {
-// Se não houver correspondências, retorna um array vazio
-callback(null, []);
-}
-}
+
+
+class AcodeAutoImport {
+  constructor() {
+    this.diretorioCache = new LRUCache(50);
+    this.baseUrl = ''; // Defina a baseURL se necessário
+  }
+
+
+
+
+  async init($page, { cacheFileUrl, cacheFile }) {
+    if (!this.baseUrl.endsWith('/')) {
+      this.baseUrl += '/';
+    }
+    this.diretorioCache.set('cacheFileUrl', cacheFileUrl);
+
+    // Exemplo de console.log para depuração
+    console.log('AcodeAutoImport iniciado.');
+    console.log('this.baseUrl:', this.baseUrl);
+    console.log('cacheFileUrl armazenado na cache:', this.diretorioCache.get('cacheFileUrl'));
+
+    // Outras operações de inicialização do componente
+  }
+
+  async destroy() {
+    // Operações de destruição do componente
+    this.diretorioCache.resetCache();
+
+    // Exemplo de console.log para depuração
+    console.log('AcodeAutoImport destruído. Cache limpa.');
+  }
 }
 
-// Lógica de inicialização, se necessário
-async init() {
-// Implementação da lógica de inicialização, se aplicável
-}
-
-// Lógica de destruição, se necessário
-async destroy() {
-// Implementação da lógica de destruição, se aplicável
-}
-}
-
-// Instância do plugin e inicialização
+// Verifica se o objeto 'acode' existe no contexto atual (provavelmente o ambiente do Acode)
 if (window.acode) {
-const acodePlugin = new AcodePluginSnippets();
-acode.setPluginInit(plugin.id, async (baseUrl, $page, { cacheFileUrl, cacheFile }) => {
-if (!baseUrl.endsWith('/')) {
-baseUrl += '/';
-}
-acodePlugin.baseUrl = baseUrl;
-await acodePlugin.init($page, cacheFile, cacheFileUrl);
-});
-acode.setPluginUnmount(plugin.id, () => {
-acodePlugin.destroy();
-});
+  const acodePlugin = new AcodeAutoImport();
+
+  acode.setPluginInit(plugin.id, async (baseUrl, $page, { cacheFileUrl, cacheFile }) => {
+    acodePlugin.baseUrl = baseUrl;
+    await acodePlugin.init($page, { cacheFileUrl, cacheFile });
+  });
+
+  acode.setPluginUnmount(plugin.id, () => {
+    acodePlugin.destroy();
+  });
 }
