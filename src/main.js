@@ -99,8 +99,6 @@ class AcodePlugin {
 		const lastWord = this.getLastWord(editor);
 
 		const matchedSnippets = snippets.filter(snippet => snippet.prefix.startsWith(lastWord));
-		
-		
 
 		if (matchedSnippets.length > 0 && matchedSnippets[0].prefix !== lastWord) {
 			const fileName = activeFile.filename.split('/').pop().split('.').slice(0, -1).join('.'); // Obtém o nome do arquivo sem extensão
@@ -280,9 +278,9 @@ class AcodePlugin {
 
 	calculateRelativePath(currentDirectory, targetDirectory) {
 		const currentPathParts = currentDirectory.split('/');
-		
+
 		const targetPathParts = targetDirectory.split('/');
-		
+
 		let commonPathLength = 0;
 
 		while (
@@ -324,19 +322,14 @@ class AcodePlugin {
 }
 
 if (window.acode) {
-	
-	
 	const acodePlugin = new AcodePlugin();
 	acode.setPluginInit(plugin.id, async (baseUrl, $page, { cacheFileUrl, cacheFile }) => {
-		
-		
 		if (!baseUrl.endsWith('/')) {
 			baseUrl += '/';
 		}
 		await acodePlugin.init(baseUrl, $page, cacheFileUrl, cacheFile);
 	});
 	acode.setPluginUnmount(plugin.id, () => {
-	
 		acodePlugin.destroy();
 	});
 }
