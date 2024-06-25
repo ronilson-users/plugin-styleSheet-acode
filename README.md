@@ -1,86 +1,105 @@
-<h1 align="center"> Acode Plugin Snippets RN </h1>
+![imageshack](https://imageshack.com/i/pmztoO1Ej)
+<br />
 
-<br>
-## VERSÂO  1.0.2
-<br>
-<br>
+<h1 align="center">  Snippets React Native </h1>
 
-Este plugin implementa funcionalidades de snippets para o editor Acode, visando aumentar a produtividade no desenvolvimento de aplicativos React Native.
+> Snippets React Native is a plugin for the Acode editor that provides snippet functionalities and IntelliSense for importing components, specifically for React Native development. The plugin implements an autocomplete functionality for snippets, automatically suggesting code completion options based on the available snippets.
 
-`<br>`
-<br>
+## Updates
 
-## Funcionalidades
-## VERSÂO  1.0.3
-> Utilização do StyleSheet, Ao utilizar o StyleSheet, é possível definir estilos de forma estruturada, permitindo uma melhor organização e manutenção do código. Este recurso também otimiza o desempenho da aplicação, já que permite que o React Native realize operações de pré-processamento para melhorar a renderização dos estilos.
+<details>
+   <summary><strong>v1.0.3</strong></summary>
+   <ul>
+       <li>Import IntelliSense</li>
+       <li>Bug Fixes</li>
+   </ul>
+</details>
 
-![Imgur](https://i.imgur.com/QhVMwe2.jpg)
+<details>
+   <summary><strong>v1.0.2</strong></summary>
+   <ul>
+       <li>CSS Properties for React Native</li>
+   </ul>
+</details>
 
+<details>
+   <summary><strong>v1.0.1</strong></summary>
+   <ul>
+       <li>Snippets for React Native</li>
+   </ul>
+</details>
 
-### Snippets
+<br />
 
-O plugin oferece uma série de snippets predefinidos para facilitar a escrita de código no React Native. Alguns dos snippets disponíveis incluem:
-![Imgur](https://i.imgur.com/t1gsL8l.jpg)
+## Features: Snippets
 
-- Importações rápidas para React e componentes específicos do React Native (como `View`, `Text`, etc.).
-- Estruturas básicas para criação de componentes funcionais em React Native.
-- Constantes pré-definidas para agilizar a escrita de código comuns.
+> The plugin offers a series of predefined snippets to facilitate writing code in React Native. Some of the available snippets include:
 
-A lista completa de snippets disponíveis pode ser encontrada na seção
+<br />
 
-[Snippets](#snippets).
+![imageshack](https://imageshack.com/i/pok7wHIwj)
 
-### Autocompletar Snippets
+<br />
 
-O plugin implementa uma funcionalidade de autocompletar para snippets. Ao digitar um prefixo de snippet, o plugin sugere automaticamente opções de completar código com base nos snippets disponíveis.
+## Features: CSS Properties for React Native
 
-## Utilização
+<br />
 
-### Como Usar
+![imageshack](https://imageshack.com/i/powcy42bj)
 
-1. Certifique-se de ter o editor Acode instalado.
-2. Instale este plugin no Acode.
-3. Ao digitar código em um arquivo React Native, utilize os prefixes de snippets configurados para acessar rapidamente os trechos de código pré-definidos.
+<br />
 
-## Snippets Disponíveis
+- Quick imports for React and specific React Native components (such as `View`, `Text`, `Button`, etc.).
+- Basic structures for creating functional components in React Native.
+- Predefined constants to expedite writing common code.
 
-<br>
-<br>
+<br />
 
-| Prefixo                 | Tipo de Snippet                |
-| ----------------------- | ------------------------------ |
-| rn-import-react         | ReactImport                    |
-| rn-import-view          | ReactNativeViewImport          |
-| rn-import-text          | ReactNativeTextImport          |
-| rn-import-components    | ReactNativeComponentsImport    |
-| rn-functional-component | ReactNativeFunctionalComponent |
-| rn-constant             | ReactNativeConstant            |
-| rn-button               | ReactNativeButton              |
+![imageshack](https://imageshack.com/i/pnPHx2zxj)
 
-<br>
-<br>
-<br>
+The complete list of available snippets can be found in the [Snippets](#snippets) section.
 
-## Contribuições
+## Features: Auto Import
 
-Contribuições para novos snippets ou melhorias são bem-vindas! Sinta-se à vontade para propor novas funcionalidades ou aprimoramentos para este plugin
+> Import IntelliSense: Create your components and import them with the tag, Exp: `<Mycomponent />`. The plugin will then create your component at the top of the file:
 
-1. Faça um fork do repositório.
-2. Crie um branch para suas alterações (`git checkout -b feature/nova-funcionalidade`).
-3. Faça commit de suas alterações (`git commit -am 'Adiciona nova funcionalidade'`).
-4. Faça push para o branch (`git push origin feature/nova-funcionalidade`).
-5. Crie um novo Pull Request.
+```js
+import Mycomponent from './components/Mycomponent';
+```
 
-## Autor
+![imageshack](https://imageshack.com/i/pn28Bl1Gj)
 
-- Ronilson RSJ
+<br />
 
-## ACRADECIMENTO
+## How to Use
 
-- Maynak Sharma
+1. sure you have the Acode editor installed.
+2. Install this plugin in Acode.
+3. While typing code in a React Native file, use the configured snippet prefixes to quickly access predefined code snippets.
 
-## Licença
+> Available Snippets
 
-Este plugin está sob a MIT Consulte o arquivo LICENSE para obter mais detalhes.
+<br />
 
-<script type="text/javascript" src="https://cdnjs.buymeacoffee.com/1.0.0/button.prod.min.js" data-name="bmc-button" data-slug="ronilsonstj" data-color="#FFDD00" data-emoji="☕"  data-font="Bree" data-text="Buy me a coffee" data-outline-color="#000000" data-font-color="#000000" data-coffee-color="#ffffff" ></script>
+| Prefixo      | Tipo de Snippet         |
+| ------------ | ----------------------- |
+| rn-          | React Native structures |
+| im-          | Basic imports           |
+| alin , borde | Css Properties          |
+| clg-         | Debugging               |
+
+<br />
+
+## Contributions
+
+1. Contributions for new snippets or improvements are welcome!
+2. Feel free to propose new features or enhancements for this plugin.
+3. Fork the repository.Create a branch for your changes (git checkout -b feature/new-feature).
+4. Commit your changes (git commit -am 'Add new feature').
+5. Push to the branch (git push origin feature/new-feature).Create a new Pull Request.
+
+<br />
+
+## Author : RsjRoni
+
+<br />
