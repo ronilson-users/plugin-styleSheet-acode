@@ -1,6 +1,6 @@
 {
 	"name": "Plugin-Acode-React",
-	"version": "1.0.3",
+	"version": "1.2.1",
 	"description": "Plugin Acode React Native ",
 	"main": "dist/main.js",
 	"scripts": {
