@@ -6,6 +6,14 @@
 > Snippets React Native is a plugin for the Acode editor that provides snippet functionalities and IntelliSense for importing components, specifically for React Native development. The plugin implements an autocomplete functionality for snippets, automatically suggesting code completion options based on the available snippets.
 
 ## Updates
+<details>
+   <summary><strong>v1.0.4</strong></summary>
+   <ul>
+       <li>Lettered Logo</li>
+       <li>Bug Fixes</li>
+   </ul>
+</details>
+
 
 <details>
    <summary><strong>v1.0.3</strong></summary>
@@ -100,6 +108,8 @@ import Mycomponent from './components/Mycomponent';
 
 <br />
 
-## Author : RsjRoni
-
+## Author : 
+- RsjRoni
+## Thanks to: 
+ - Raunak Raj, for helping with some. queries
 <br />
