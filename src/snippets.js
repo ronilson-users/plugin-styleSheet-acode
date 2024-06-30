@@ -3,6 +3,9 @@ Construção de Snippets para REACT NATIVE
 */
 export const snippets = [
  
+ //home::/data/data/com.termux/files/home/Acode/Projeto_Final/plugin-styleSheet-acode/src/snippets.js
+ 
+ 
 /** 
  * Import  React Native
 */
@@ -25,12 +28,12 @@ export const snippets = [
   ]
 },
 {
- "prefix": "im-useState",
- "snippet": `import { useState } from 'react';`,
+ "prefix": "im-useState-useEffect",
+ "snippet": `import { useState , useEffect } from 'react';`,
  "type": "snippet RN",
- "description": "Import useState from React",
+ "description": "Import useState, useEffect from React",
  "body": [
-  "import { useState } from 'react';"
+  "import { useState , useEffect } from 'react';"
   ]
 },
 {
@@ -94,15 +97,6 @@ export const snippets = [
  "description": "Import Button from React Native",
  "body": [
   "import { Button } from 'react-native';"
-  ]
-},
-{
- "prefix": "im-react",
- "snippet": `import React from 'react';`,
- "type": "snippet RN",
- "description": "Import React in React Native",
- "body": [
-  "import React from 'react';"
   ]
 },
 {
@@ -197,7 +191,9 @@ export const snippets = [
 },
 {
  "prefix": "im-asyncStorage",
- "snippet": `import AsyncStorage from '@react-native-async-storage/async-storage';`,
+ "snippet": `import AsyncStorage from '@react-native-async-storage/async-storage';
+ // npx expo install @react-native-async-storage/async-storage
+ `,
  "type": "snippet RN",
  "description": "Import AsyncStorage from React Native Async Storage",
  "body": [
@@ -223,8 +219,8 @@ export const snippets = [
   ]
 },
 
-    /**
-     * component
+ /**
+ * component
  */
     {
         prefix: "rn-component-AsyncStorage",
@@ -277,7 +273,6 @@ const styles = StyleSheet.create({
         alignItems: "center"
     }
 });
-
 `,
         type: "snippet RN",
         description: "Export functional component with styles.",
@@ -285,7 +280,7 @@ const styles = StyleSheet.create({
          `import React from "react";
 import { View, StyleSheet, Text } from "react-native";
 
-export default function  \${1:FILE_NAME}(){
+export default function  \${1:App}(){
     return (
         <View style={styles.container}>
             <Text>Welcome to React Native!</Text>
@@ -716,7 +711,9 @@ export default MyImage$1;
     // Hooks
     {
         prefix: "rn-usestate-hook",
-        snippet: `const [$1, set$2] = useState($3);`,
+        snippet: `const [$1, set$2] = useState($3);
+        // Tab next
+        `,
         type: "snippet RN",
         description: "Criar um snippet para o hook useState"
     },
@@ -929,32 +926,35 @@ keyExtractor={(item) => item.id.toString()}
     // TextInput
     {
         prefix: "TextInput",
-        snippet: `<TextInput style={styles.$1}\n
-    onChangeText={(text) => $2}
-    value={$3}
-/>
-// tab `,
+        snippet: `<TextInput 
+                style={styles.input}
+                placeholder="Enter text"
+                value={text}
+                onChangeText={setText}
+            />
+//  const [text, setText] = useState('');
+`,
         type: "snippet RN",
         description: "Create TextInput in React Native"
     },
     // Pressable
     {
-        prefix: "rn-pressable",
+        prefix: "Pessable-",
         snippet: "<Pressable onPress={$1}>\n  $2\n</Pressable>",
         type: "snippet RN",
         description: "Create Pressable in React Native"
     },
     // View
     {
-        prefix: "rn-view",
+        prefix: "View-",
         snippet: "<View $1>\n  $2\n</View>",
         type: "snippet RN",
         description: "Create View in React Native"
     },
     // Button
     {
-        prefix: "rn-button",
-        snippet: `      <Button
+        prefix: "Button-",
+        snippet: `<Button
 title="Press me"
 onPress={() => alert('Button pressed!')}
 />`,
@@ -1012,21 +1012,24 @@ fontSize: 16,
         prefix: "alignContent",
         snippet: "alignContent: '$1',",
         type: "snippet Prop.",
-        description: "Add alignContent style to a component"
+        description: "Add alignContent style to a componen",
+        body:[]
     },
     // alignItems
     {
         prefix: "alignItems",
         snippet: "alignItems: '$1',",
         type: "snippet Prop.",
-        description: "Add alignItems style to a component"
+        description: "Add alignItems style to a component",
+        body:[]
     },
     // alignSelf
     {
         prefix: "alignSelf",
         snippet: "alignSelf: '$1',",
         type: "snippet Prop.",
-        description: "Add alignSelf style to a component"
+        description: "Add alignSelf style to a component",
+        body:[]
     },
     // aspectRatio - number
     {
@@ -1034,34 +1037,40 @@ fontSize: 16,
         snippet: "aspectRatio: $1,",
         type: "snippet Prop.",
         description: "Add aspectRatio style (number) to a component"
+        ,body:[]
     },
     // borderBottomWidth - number
     {
         prefix: "borderBottomWidth",
         snippet: "borderBottomWidth: $1,",
         type: "snippet Prop.",
-        description: "Add borderBottomWidth style (number) to a component"
+        description: "Add borderBottomWidth style (number) to a component",
+        body:[]
+ 
     },
     // borderLeftWidth - number
     {
         prefix: "borderLeftWidth",
         snippet: "borderLeftWidth: $1,",
         type: "snippet Prop.",
-        description: "Add borderLeftWidth style (number) to a component"
+        description: "Add borderLeftWidth style (number) to a component",
+        body:[]
+
     },
     // borderRightWidth - number
     {
         prefix: "borderRightWidth",
         snippet: "borderRightWidth: $1,",
         type: "snippet Prop.",
-        description: "Add borderRightWidth style (number) to a component"
+        description: "Add borderRightWidth style (number) to a component",
+        body:[]
     },
     // borderStartWidth - number
     {
         prefix: "borderStartWidth",
         snippet: "borderStartWidth: $1,",
         type: "snippet Prop.",
-        description: "Add borderStartWidth style (number) to a component"
+        description: "Add borderStartWidth style (number) to a component",body:[]
     },
     // borderTopWidth - number
     {
@@ -1069,6 +1078,7 @@ fontSize: 16,
         snippet: "borderTopWidth: $1,",
         type: "snippet Prop.",
         description: "Add borderTopWidth style (number) to a component"
+        ,body:[]
     },
     // borderWidth - number
     {
@@ -1076,6 +1086,7 @@ fontSize: 16,
         snippet: "borderWidth: $1,",
         type: "snippet Prop.",
         description: "Add borderWidth style (number) to a component"
+        ,body:[]
     },
     // borderEndWidth - number
     {
@@ -1083,6 +1094,7 @@ fontSize: 16,
         snippet: "borderEndWidth: $1,",
         type: "snippet Prop.",
         description: "Add borderEndWidth style (number) to a component"
+        ,body:[]
     },
     // Bottom - number
     {
@@ -1090,6 +1102,7 @@ fontSize: 16,
         snippet: "bottom: $1,",
         type: "snippet Prop.",
         description: "Add bottom style (number) to a component"
+        ,body:[]
     },
     // Column Gap - number
     {
@@ -1103,28 +1116,28 @@ fontSize: 16,
         prefix: "direction",
         snippet: "direction: '$1',",
         type: "snippet Prop.",
-        description: "Add direction style to a component"
+        description: "Add direction style to a component" ,body:[]
     },
     // Display
     {
         prefix: "display",
         snippet: "display: '$1',",
         type: "snippet Prop.",
-        description: "Add display style to a component"
+        description: "Add display style to a component" ,body:[]
     },
     // End - number
     {
         prefix: "end",
         snippet: "end: $1,",
         type: "snippet Prop.",
-        description: "Add end style (number) to a component"
+        description: "Add end style (number) to a component" ,body:[]
     },
     // Flex - number
     {
         prefix: "flex",
         snippet: "flex: $1,",
         type: "snippet Prop.",
-        description: "Add flex style (number) to a component"
+        description: "Add flex style (number) to a component" ,body:[]
     },
     // Flex Basis - number
     {
@@ -1159,315 +1172,315 @@ fontSize: 16,
         prefix: "flexShrink",
         snippet: "flexShrink: $1,",
         type: "snippet Prop.",
-        description: "Add flexShrink style (number) to a component"
+        description: "Add flexShrink style (number) to a component" ,body:[]
     },
     // Flex Wrap
     {
         prefix: "flexWrap",
         snippet: "flexWrap: '$1',",
         type: "snippet Prop.",
-        description: "Add flexWrap style to a component"
+        description: "Add flexWrap style to a component" ,body:[]
     },
     // Gap - number
     {
         prefix: "gap",
         snippet: "gap: $1,",
         type: "snippet Prop.",
-        description: "Add gap style (number) to a component"
+        description: "Add gap style (number) to a component" ,body:[]
     },
     // Height - number
     {
         prefix: "height",
         snippet: "height: $1,",
         type: "snippet Prop.",
-        description: "Add height style (number) to a component"
+        description: "Add height style (number) to a component" ,body:[]
     },
     // Inset - number
     {
         prefix: "inset",
         snippet: "inset: $1,",
         type: "snippet Prop.",
-        description: "Add inset style (number) to a component"
+        description: "Add inset style (number) to a component" ,body:[]
     },
     // Inset Block End - number
     {
         prefix: "insetBlockEnd",
         snippet: "insetBlockEnd: $1,",
         type: "snippet Prop.",
-        description: "Add insetBlockEnd style (number) to a component"
+        description: "Add insetBlockEnd style (number) to a component" ,body:[]
     },
     // Inset Block Start - number
     {
         prefix: "insetBlockStart",
         snippet: "insetBlockStart: $1,",
         type: "snippet Prop.",
-        description: "Add insetBlockStart style (number) to a component"
+        description: "Add insetBlockStart style (number) to a component" ,body:[]
     },
     // Inset Inline - number
     {
         prefix: "insetInline",
         snippet: "insetInline: $1,",
         type: "snippet Prop.",
-        description: "Add insetInline style (number) to a component"
+        description: "Add insetInline style (number) to a component" ,body:[]
     },
     // Inset Inline End - number
     {
         prefix: "insetInlineEnd",
         snippet: "insetInlineEnd: $1,",
         type: "snippet Prop.",
-        description: "Add insetInlineEnd style (number) to a component"
+        description: "Add insetInlineEnd style (number) to a component" ,body:[]
     },
     // Inset Inline Start - number
     {
         prefix: "insetInlineStart",
         snippet: "insetInlineStart: $1,",
         type: "snippet Prop.",
-        description: "Add insetInlineStart style (number) to a component"
+        description: "Add insetInlineStart style (number) to a component" ,body:[]
     },
     // justifyContent
     {
         prefix: "justifyContent",
         snippet: "justifyContent: '$1',",
         type: "snippet Prop.",
-        description: "Add justifyContent style to a component"
+        description: "Add justifyContent style to a component" ,body:[]
     },
     // left
     {
         prefix: "left",
         snippet: "left: $1,",
         type: "snippet Prop.",
-        description: "Add left style to a component"
+        description: "Add left style to a component" ,body:[]
     },
     // margin
     {
         prefix: "margin",
         snippet: "margin: $1,",
         type: "snippet Prop.",
-        description: "Add margin style to a component"
+        description: "Add margin style to a component" ,body:[]
     },
     // marginBlock
     {
         prefix: "marginBlock",
         snippet: "marginBlock: $1,",
         type: "snippet Prop.",
-        description: "Add marginBlock style to a component"
+        description: "Add marginBlock style to a component" ,body:[]
     },
     // marginBlockEnd
     {
         prefix: "marginBlockEnd",
         snippet: "marginBlockEnd: $1,",
         type: "snippet Prop.",
-        description: "Add marginBlockEnd style to a component"
+        description: "Add marginBlockEnd style to a component" ,body:[]
     },
     // marginBlockStart
     {
         prefix: "marginBlockStart",
         snippet: "marginBlockStart: $1,",
         type: "snippet Prop.",
-        description: "Add marginBlockStart style to a component"
+        description: "Add marginBlockStart style to a component" ,body:[]
     },
     // marginBottom
     {
         prefix: "marginBottom",
         snippet: "marginBottom: $1,",
         type: "snippet Prop.",
-        description: "Add marginBottom style to a component"
+        description: "Add marginBottom style to a component" ,body:[]
     },
     // marginEnd
     {
         prefix: "marginEnd",
         snippet: "marginEnd: $1,",
         type: "snippet Prop.",
-        description: "Add marginEnd style to a component"
+        description: "Add marginEnd style to a component" ,body:[]
     },
     // marginHorizontal
     {
         prefix: "marginHorizontal",
         snippet: "marginHorizontal: $1,",
         type: "snippet Prop.",
-        description: "Add marginHorizontal style to a component"
+        description: "Add marginHorizontal style to a component" ,body:[]
     },
     // marginInline
     {
         prefix: "marginInline",
         snippet: "marginInline: $1,",
         type: "snippet Prop.",
-        description: "Add marginInline style to a component"
+        description: "Add marginInline style to a component" ,body:[]
     },
     // marginInlineEnd
     {
         prefix: "marginInlineEnd",
         snippet: "marginInlineEnd: $1,",
         type: "snippet Prop.",
-        description: "Add marginInlineEnd style to a component"
+        description: "Add marginInlineEnd style to a component" ,body:[]
     },
     // marginInlineStart
     {
         prefix: "marginInlineStart",
         snippet: "marginInlineStart: $1,",
         type: "snippet Prop.",
-        description: "Add marginInlineStart style to a component"
+        description: "Add marginInlineStart style to a component" ,body:[]
     },
     // marginLeft
     {
         prefix: "marginLeft",
         snippet: "marginLeft: $1,",
         type: "snippet Prop.",
-        description: "Add marginLeft style to a component"
+        description: "Add marginLeft style to a component" ,body:[]
     },
     // marginRight
     {
         prefix: "marginRight",
         snippet: "marginRight: $1,",
         type: "snippet Prop.",
-        description: "Add marginRight style to a component"
+        description: "Add marginRight style to a component" ,body:[]
     },
     // marginStart
     {
         prefix: "marginStart",
         snippet: "marginStart: $1,",
         type: "snippet Prop.",
-        description: "Add marginStart style to a component"
+        description: "Add marginStart style to a component" ,body:[]
     },
     // marginTop
     {
         prefix: "marginTop",
         snippet: "marginTop: $1,",
         type: "snippet Prop.",
-        description: "Add marginTop style to a component"
+        description: "Add marginTop style to a component" ,body:[]
     },
     // marginVertical
     {
         prefix: "marginVertical",
         snippet: "marginVertical: $1,",
         type: "snippet Prop.",
-        description: "Add marginVertical style to a component"
+        description: "Add marginVertical style to a component" ,body:[]
     },
     // maxHeight
     {
         prefix: "maxHeight",
         snippet: "maxHeight: $1,",
         type: "snippet Prop.",
-        description: "Add maxHeight style to a component"
+        description: "Add maxHeight style to a component" ,body:[]
     },
     // maxWidth
     {
         prefix: "maxWidth",
         snippet: "maxWidth: $1,",
         type: "snippet Prop.",
-        description: "Add maxWidth style to a component"
+        description: "Add maxWidth style to a component" ,body:[]
     },
     // minHeight
     {
         prefix: "minHeight",
         snippet: "minHeight: $1,",
         type: "snippet Prop.",
-        description: "Add minHeight style to a component"
+        description: "Add minHeight style to a component" ,body:[]
     },
     // minWidth
     {
         prefix: "minWidth",
         snippet: "minWidth: $1,",
         type: "snippet Prop.",
-        description: "Add minWidth style to a component"
+        description: "Add minWidth style to a component" ,body:[]
     },
     // Overflow
     {
         prefix: "overflow",
         snippet: "overflow: '$1',",
         type: "snippet Prop.",
-        description: "Add overflow style to a component"
+        description: "Add overflow style to a component" ,body:[]
     },
     // padding
     {
         prefix: "padding",
         snippet: "padding: $1,",
         type: "snippet Prop.",
-        description: "Add padding style to a component"
+        description: "Add padding style to a component" ,body:[]
     },
     // paddingBlock
     {
         prefix: "paddingBlock",
         snippet: "paddingBlock: $1,",
         type: "snippet Prop.",
-        description: "Add paddingBlock style to a component"
+        description: "Add paddingBlock style to a component" ,body:[]
     },
     // paddingBlockEnd
     {
         prefix: "paddingBlockEnd",
         snippet: "paddingBlockEnd: $1,",
         type: "snippet Prop.",
-        description: "Add paddingBlockEnd style to a component"
+        description: "Add paddingBlockEnd style to a component" ,body:[]
     },
     // paddingBlockStart
     {
         prefix: "paddingBlockStart",
         snippet: "paddingBlockStart: $1,",
         type: "snippet Prop.",
-        description: "Add paddingBlockStart style to a component"
+        description: "Add paddingBlockStart style to a component" ,body:[]
     },
     // paddingBottom
     {
         prefix: "paddingBottom",
         snippet: "paddingBottom: $1,",
         type: "snippet Prop.",
-        description: "Add paddingBottom style to a component"
+        description: "Add paddingBottom style to a component" ,body:[]
     },
     // paddingTop
     {
         prefix: "paddingTop",
         snippet: "paddingTop: $1,",
         type: "snippet Prop.",
-        description: "Add paddingTop style to a component"
+        description: "Add paddingTop style to a component" ,body:[]
     },
     // paddingHorizontal
     {
         prefix: "paddingHorizontal",
         snippet: "paddingHorizontal: $1,",
         type: "snippet Prop.",
-        description: "Add paddingHorizontal style to a component"
+        description: "Add paddingHorizontal style to a component" ,body:[]
     },
     // paddingVertical
     {
         prefix: "paddingVertical",
         snippet: "paddingVertical: $1,",
         type: "snippet Prop.",
-        description: "Add paddingVertical style to a component"
+        description: "Add paddingVertical style to a component" ,body:[]
     },
     // right
     {
         prefix: "right",
         snippet: "right: $1,",
         type: "snippet Prop.",
-        description: "Add right style to a component"
+        description: "Add right style to a component" ,body:[]
     },
     // start
     {
         prefix: "start",
         snippet: "start: $1,",
         type: "snippet Prop.",
-        description: "Add start style to a component"
+        description: "Add start style to a component" ,body:[]
     },
     // top
     {
         prefix: "top",
         snippet: "top: $1,",
         type: "snippet Prop.",
-        description: "Add top style to a component"
+        description: "Add top style to a component" ,body:[]
     },
     // width
     {
         prefix: "width",
         snippet: "width: $1,",
         type: "snippet Prop.",
-        description: "Add width style to a component"
+        description: "Add width style to a component" ,body:[]
     },
     // zIndex
     {
         prefix: "zIndex",
         snippet: "zIndex: $1,",
         type: "snippet Prop.",
-        description: "Add zIndex style to a component"
+        description: "Add zIndex style to a component" ,body:[]
     },
     // flex
     {
@@ -1481,371 +1494,371 @@ fontSize: 16,
         prefix: "shadowColor",
         snippet: "shadowColor: '$1',",
         type: "snippet Prop.",
-        description: "Add shadowColor style to a component"
+        description: "Add shadowColor style to a component" ,body:[]
     },
     // shadowOffset
     {
         prefix: "shadowOffset",
         snippet: "shadowOffset: { width: $1, height: $2 },",
         type: "snippet Prop.",
-        description: "Add shadowOffset style to a component"
+        description: "Add shadowOffset style to a component" ,body:[]
     },
     // shadowOpacity
     {
         prefix: "shadowOpacity",
         snippet: "shadowOpacity: $1,",
         type: "snippet Prop.",
-        description: "Add shadowOpacity style to a component"
+        description: "Add shadowOpacity style to a component" ,body:[]
     },
     // shadowRadius
     {
         prefix: "shadowRadius",
         snippet: "shadowRadius: $1,",
         type: "snippet Prop.",
-        description: "Add shadowRadius style to a component"
+        description: "Add shadowRadius style to a component" ,body:[]
     },
     // transform
     {
         prefix: "transform",
         snippet: "transform: [{ $1 }],",
         type: "snippet Prop.",
-        description: "Add transform style to a component"
+        description: "Add transform style to a component" ,body:[]
     },
     // backfaceVisibility
     {
         prefix: "backfaceVisibility",
         snippet: "backfaceVisibility: '$1',",
         type: "snippet Prop.",
-        description: "Add backfaceVisibility style to a component"
+        description: "Add backfaceVisibility style to a component" ,body:[]
     },
     // backgroundColor
     {
         prefix: "backgroundColor",
         snippet: "backgroundColor: '$1',",
         type: "snippet Prop.",
-        description: "Add backgroundColor style to a component"
+        description: "Add backgroundColor style to a component" ,body:[]
     },
     // borderBottomColor
     {
         prefix: "borderBottomColor",
         snippet: "borderBottomColor: '$1',",
         type: "snippet Prop.",
-        description: "Add borderBottomColor style to a component"
+        description: "Add borderBottomColor style to a component" ,body:[]
     },
     // borderBottomEndRadius
     {
         prefix: "borderBottomEndRadius",
         snippet: "borderBottomEndRadius: $1,",
         type: "snippet Prop.",
-        description: "Add borderBottomEndRadius style to a component"
+        description: "Add borderBottomEndRadius style to a component" ,body:[]
     },
     // borderBottomLeftRadius
     {
         prefix: "borderBottomLeftRadius",
         snippet: "borderBottomLeftRadius: $1,",
         type: "snippet Prop.",
-        description: "Add borderBottomLeftRadius style to a component"
+        description: "Add borderBottomLeftRadius style to a component" ,body:[]
     },
     // borderBottomRightRadius
     {
         prefix: "borderBottomRightRadius",
         snippet: "borderBottomRightRadius: $1,",
         type: "snippet Prop.",
-        description: "Add borderBottomRightRadius style to a component"
+        description: "Add borderBottomRightRadius style to a component" ,body:[]
     },
     // borderBottomStartRadius
     {
         prefix: "borderBottomStartRadius",
         snippet: "borderBottomStartRadius: $1,",
         type: "snippet Prop.",
-        description: "Add borderBottomStartRadius style to a component"
+        description: "Add borderBottomStartRadius style to a component" ,body:[]
     },
     // borderColor
     {
         prefix: "borderColor",
         snippet: "borderColor: '$1',",
         type: "snippet Prop.",
-        description: "Add borderColor style to a component"
+        description: "Add borderColor style to a component" ,body:[]
     },
     // borderCurve
     {
         prefix: "borderCurve",
         snippet: "borderCurve: '$1',",
         type: "snippet Prop.",
-        description: "Add borderCurve style to a component"
+        description: "Add borderCurve style to a component" ,body:[]
     },
     // borderEndColor
     {
         prefix: "borderEndColor",
         snippet: "borderEndColor: '$1',",
         type: "snippet Prop.",
-        description: "Add borderEndColor style to a component"
+        description: "Add borderEndColor style to a component" ,body:[]
     },
     // borderEndEndRadius
     {
         prefix: "borderEndEndRadius",
         snippet: "borderEndEndRadius: $1,",
         type: "snippet Prop.",
-        description: "Add borderEndEndRadius style to a component"
+        description: "Add borderEndEndRadius style to a component" ,body:[]
     },
     // borderEndStartRadius
     {
         prefix: "borderEndStartRadius",
         snippet: "borderEndStartRadius: $1,",
         type: "snippet Prop.",
-        description: "Add borderEndStartRadius style to a component"
+        description: "Add borderEndStartRadius style to a component" ,body:[]
     },
     // borderLeftColor
     {
         prefix: "borderLeftColor",
         snippet: "borderLeftColor: '$1',",
         type: "snippet Prop.",
-        description: "Add borderLeftColor style to a component"
+        description: "Add borderLeftColor style to a component" ,body:[]
     },
     // borderRadius
     {
         prefix: "borderRadius",
         snippet: "borderRadius: $1,",
         type: "snippet Prop.",
-        description: "Add borderRadius style to a component"
+        description: "Add borderRadius style to a component" ,body:[]
     },
     // borderRightColor
     {
         prefix: "borderRightColor",
         snippet: "borderRightColor: '$1',",
         type: "snippet Prop.",
-        description: "Add borderRightColor style to a component"
+        description: "Add borderRightColor style to a component" ,body:[]
     },
     // borderStartColor
     {
         prefix: "borderStartColor",
         snippet: "borderStartColor: '$1',",
         type: "snippet Prop.",
-        description: "Add borderStartColor style to a component"
+        description: "Add borderStartColor style to a component" ,body:[]
     },
     // borderStartEndRadius
     {
         prefix: "borderStartEndRadius",
         snippet: "borderStartEndRadius: $1,",
         type: "snippet Prop.",
-        description: "Add borderStartEndRadius style to a component"
+        description: "Add borderStartEndRadius style to a component" ,body:[]
     },
     // borderStartStartRadius
     {
         prefix: "borderStartStartRadius",
         snippet: "borderStartStartRadius: $1,",
         type: "snippet Prop.",
-        description: "Add borderStartStartRadius style to a component"
+        description: "Add borderStartStartRadius style to a component" ,body:[]
     },
     // borderStyle
     {
         prefix: "borderStyle",
         snippet: "borderStyle: '$1',",
         type: "snippet Prop.",
-        description: "Add borderStyle style to a component"
+        description: "Add borderStyle style to a component" ,body:[]
     },
     // borderTopColor
     {
         prefix: "borderTopColor",
         snippet: "borderTopColor: '$1',",
         type: "snippet Prop.",
-        description: "Add borderTopColor style to a component"
+        description: "Add borderTopColor style to a component" ,body:[]
     },
     // borderTopEndRadius
     {
         prefix: "borderTopEndRadius",
         snippet: "borderTopEndRadius: $1,",
         type: "snippet Prop.",
-        description: "Add borderTopEndRadius style to a component"
+        description: "Add borderTopEndRadius style to a component" ,body:[]
     },
     // borderTopLeftRadius
     {
         prefix: "borderTopLeftRadius",
         snippet: "borderTopLeftRadius: $1,",
         type: "snippet Prop.",
-        description: "Add borderTopLeftRadius style to a component"
+        description: "Add borderTopLeftRadius style to a component" ,body:[]
     },
     // borderTopRightRadius
     {
         prefix: "borderTopRightRadius",
         snippet: "borderTopRightRadius: $1,",
         type: "snippet Prop.",
-        description: "Add borderTopRightRadius style to a component"
+        description: "Add borderTopRightRadius style to a component" ,body:[]
     },
     // borderTopStartRadius
     {
         prefix: "borderTopStartRadius",
         snippet: "borderTopStartRadius: $1,",
         type: "snippet Prop.",
-        description: "Add borderTopStartRadius style to a component"
+        description: "Add borderTopStartRadius style to a component" ,body:[]
     },
     // elevation
     {
         prefix: "elevation",
         snippet: "elevation: $1,",
         type: "snippet Prop.",
-        description: "Add elevation style to a component"
+        description: "Add elevation style to a component" ,body:[]
     },
     // opacity
     {
         prefix: "opacity",
         snippet: "opacity: $1,",
         type: "snippet Prop.",
-        description: "Add opacity style to a component"
+        description: "Add opacity style to a component" ,body:[]
     },
     // pointerEvents
     {
         prefix: "pointerEvents",
         snippet: "pointerEvents: '$1',",
         type: "snippet Prop.",
-        description: "Add pointerEvents style to a component"
+        description: "Add pointerEvents style to a component" ,body:[]
     },
     // color
     {
         prefix: "color",
         snippet: "color: '$1',",
         type: "snippet Prop.",
-        description: "Add color style to a component"
+        description: "Add color style to a component" ,body:[]
     },
     // fontFamily
     {
         prefix: "fontFamily",
         snippet: "fontFamily: '$1',",
         type: "snippet Prop.",
-        description: "Add fontFamily style to a component"
+        description: "Add fontFamily style to a component" ,body:[]
     },
     // fontSize
     {
         prefix: "fontSize",
         snippet: "fontSize: $1,",
         type: "snippet Prop.",
-        description: "Add fontSize style to a component"
+        description: "Add fontSize style to a component" ,body:[]
     },
     // fontStyle
     {
         prefix: "fontStyle",
         snippet: "fontStyle: '$1',",
         type: "snippet Prop.",
-        description: "Add fontStyle style to a component"
+        description: "Add fontStyle style to a component" ,body:[]
     },
     // fontVariant
     {
         prefix: "fontVariant",
         snippet: "fontVariant: '$1',",
         type: "snippet Prop.",
-        description: "Add fontVariant style to a component"
+        description: "Add fontVariant style to a component" ,body:[]
     },
     // fontWeight
     {
         prefix: "fontWeight",
         snippet: "fontWeight: '$1',",
         type: "snippet Prop.",
-        description: "Add fontWeight style to a component"
+        description: "Add fontWeight style to a component" ,body:[]
     },
     // includeFontPadding
     {
         prefix: "includeFontPadding",
         snippet: "includeFontPadding: $1,",
         type: "snippet Prop.",
-        description: "Add includeFontPadding style to a component"
+        description: "Add includeFontPadding style to a component" ,body:[]
     },
     // letterSpacing
     {
         prefix: "letterSpacing",
         snippet: "letterSpacing: $1,",
         type: "snippet Prop.",
-        description: "Add letterSpacing style to a component"
+        description: "Add letterSpacing style to a component" ,body:[]
     },
     // lineHeight
     {
         prefix: "lineHeight",
         snippet: "lineHeight: $1,",
         type: "snippet Prop.",
-        description: "Add lineHeight style to a component"
+        description: "Add lineHeight style to a component" ,body:[]
     },
     // textAlign
     {
         prefix: "textAlign",
         snippet: "textAlign: '$1',",
         type: "snippet Prop.",
-        description: "Add textAlign style to a component"
+        description: "Add textAlign style to a component" ,body:[]
     },
     // textAlignVertical
     {
         prefix: "textAlignVertical",
         snippet: "textAlignVertical: '$1',",
         type: "snippet Prop.",
-        description: "Add textAlignVertical style to a component"
+        description: "Add textAlignVertical style to a component" ,body:[]
     },
     // textDecorationColor
     {
         prefix: "textDecorationColor",
         snippet: "textDecorationColor: '$1',",
         type: "snippet Prop.",
-        description: "Add textDecorationColor style to a component"
+        description: "Add textDecorationColor style to a component" ,body:[]
     },
     // textDecorationLine
     {
         prefix: "textDecorationLine",
         snippet: "textDecorationLine: '$1',",
         type: "snippet Prop.",
-        description: "Add textDecorationLine style to a component"
+        description: "Add textDecorationLine style to a component" ,body:[]
     },
     // textDecorationStyle
     {
         prefix: "textDecorationStyle",
         snippet: "textDecorationStyle: '$1',",
         type: "snippet Prop.",
-        description: "Add textDecorationStyle style to a component"
+        description: "Add textDecorationStyle style to a component" ,body:[]
     },
     // textShadowColor
     {
         prefix: "textShadowColor",
         snippet: "textShadowColor: '$1',",
         type: "snippet Prop.",
-        description: "Add textShadowColor style to a component"
+        description: "Add textShadowColor style to a component" ,body:[]
     },
     // textShadowOffset
     {
         prefix: "textShadowOffset",
         snippet: "textShadowOffset: $1,",
         type: "snippet Prop.",
-        description: "Add textShadowOffset style to a component"
+        description: "Add textShadowOffset style to a component" ,body:[]
     },
     // textShadowRadius
     {
         prefix: "textShadowRadius",
         snippet: "textShadowRadius: $1,",
         type: "snippet Prop.",
-        description: "Add textShadowRadius style to a component"
+        description: "Add textShadowRadius style to a component" ,body:[]
     },
     // textTransform
     {
         prefix: "textTransform",
         snippet: "textTransform: '$1',",
         type: "snippet Prop.",
-        description: "Add textTransform style to a component"
+        description: "Add textTransform style to a component" ,body:[]
     },
     // userSelect
     {
         prefix: "userSelect",
         snippet: "userSelect: '$1',",
         type: "snippet Prop.",
-        description: "Add userSelect style to a component"
+        description: "Add userSelect style to a component" ,body:[]
     },
     // verticalAlign
     {
         prefix: "verticalAlign",
         snippet: "verticalAlign: '$1',",
         type: "snippet Prop.",
-        description: "Add verticalAlign style to a component"
+        description: "Add verticalAlign style to a component" ,body:[]
     },
     // writingDirection
     {
         prefix: "writingDirection",
         snippet: "writingDirection: '$1',",
         type: "snippet Prop.",
-        description: "Add writingDirection style to a component"
+        description: "Add writingDirection style to a component" ,body:[]
     },
 
     /**
